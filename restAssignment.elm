@@ -16,8 +16,9 @@ type alias Model
 view : Model -> Html Msg
 view model =
     div []
-      [ button [ onClick GetCount ] [ text ("Number is now: " ++ model.url)]
-      ,button [ onClick SetCount ] [ text ("Set number: " )]
+      [ button [ onClick GetCount ] [ text "Get"]
+      , button [ onClick SetCount ] [ text  "Set"]
+      , div [ ] [text (toString model.url)]
       ]
 
 decodeCount : Decode.Decoder String
@@ -29,7 +30,7 @@ decodeCount = Decode.at ["value"] Decode.string
 getCount : Cmd Msg
 getCount =
   let
-    url = "http://localhost:8084/elmAssignmentRest/api/counter"
+    url = "http://localhost:3000/counter/"
   in
     Http.send NewCount (Http.get url decodeCount)
 
@@ -39,7 +40,7 @@ sendPutToServer message =
     request = Http.request
       { method = "PUT"
       , headers = []
-      , url = "http://localhost:8084/elmAssignmentRest/api/counter/" ++ message
+      , url = "http://localhost:3000/counter/" ++ message
       , body = Http.emptyBody
       , expect = Http.expectString
       , timeout = Nothing
@@ -49,18 +50,12 @@ sendPutToServer message =
     Http.send NewCount request
 
 
---setCount : Int -> Cmd Msg
---setCount value =
---  let
---    url = "http://localhost:8084/elmAssignmentRest/api/counter/" ++ (toString value)
---  in
---    Http.send NewCount (put url emptyBody)
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update message model =
   case (Debug.log "Debug " message) of
     NewCount (Ok value) -> (Model value, Cmd.none)
-    NewCount (Err error) -> (Model "Fuck this shit", Cmd.none)
+    NewCount (Err error) -> (Model "I really failed", Cmd.none)
     GetCount -> (model, getCount)
     SetCount -> (model, sendPutToServer "1")
 

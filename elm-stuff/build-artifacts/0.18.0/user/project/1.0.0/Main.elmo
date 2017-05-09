@@ -26,8 +26,7 @@ var _user$project$Main$view = function (model) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(_elm_lang$core$Basics_ops['++'], 'Number is now: ', model.url)),
+					_0: _elm_lang$html$Html$text('Get'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -41,10 +40,22 @@ var _user$project$Main$view = function (model) {
 					},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text('Set number: '),
+						_0: _elm_lang$html$Html$text('Set'),
 						_1: {ctor: '[]'}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								_elm_lang$core$Basics$toString(model.url)),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };
@@ -52,7 +63,7 @@ var _user$project$Main$NewCount = function (a) {
 	return {ctor: 'NewCount', _0: a};
 };
 var _user$project$Main$getCount = function () {
-	var url = 'http://localhost:8084/elmAssignmentRest/api/counter';
+	var url = 'http://localhost:3000/counter/';
 	return A2(
 		_elm_lang$http$Http$send,
 		_user$project$Main$NewCount,
@@ -63,7 +74,7 @@ var _user$project$Main$sendPutToServer = function (message) {
 		{
 			method: 'PUT',
 			headers: {ctor: '[]'},
-			url: A2(_elm_lang$core$Basics_ops['++'], 'http://localhost:8084/elmAssignmentRest/api/counter/', message),
+			url: A2(_elm_lang$core$Basics_ops['++'], 'http://localhost:3000/counter/', message),
 			body: _elm_lang$http$Http$emptyBody,
 			expect: _elm_lang$http$Http$expectString,
 			timeout: _elm_lang$core$Maybe$Nothing,
@@ -85,7 +96,7 @@ var _user$project$Main$update = F2(
 				} else {
 					return {
 						ctor: '_Tuple2',
-						_0: _user$project$Main$Model('Fuck this shit'),
+						_0: _user$project$Main$Model('I really failed'),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				}
